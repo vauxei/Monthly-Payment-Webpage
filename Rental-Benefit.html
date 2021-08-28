@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rental Benefit</title>
+    <style>
+      .intro {
+        padding: 4px;
+        width: 40%;
+        border: 4px ridge;
+      }
+      #values {
+        width: 40%;
+        position: absolute;
+        background-color: rgb(54, 201, 193);
+        margin-top: 30px;
+        border: 4px ridge;
+      }
+      #values input {
+        float: right;
+      }
+      #showhide {
+        width: 55%;
+        border: 4px ridge;
+        background-color: rgb(168, 224, 228);
+        display: none;
+        position: absolute;
+        right: 0%;
+        top: 0%;
+        float: right;
+      }
+      #tableheading {
+        color: rgb(179, 77, 77);
+      }
+      #float button {
+        position: inherit;
+      }
+      tr {
+        border: 4px ridge;
+        position: inherit;
+        padding: 5px;
+      }
+      td {
+        border: 1px ridge;
+        width: 5%;
+        height: 5%;
+      }
+      #fa {
+        position: absolute;
+        clear: both;
+        top: 550px;
+        overflow: auto;
+      }
+      #fa #lar #resiz #laresix {
+        position: absolute;
+        float: right;
+        top: 800px;
+        left: 150px;
+      }
+      .footer {
+        float: left;
+        width: 40%;
+        position: absolute;
+        clear: both;
+        top: 950px;
+        overflow: auto;
+      }
+      footer #1 #2 #3 #4 {
+        position: absolute;
+        float: right;
+        top: 40px;
+        left: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--Intro-->
+    <h1><u>Understanding The Rental Benefit</u></h1>
+    <p>A Guide to The Rental Benefit Of Salary Packaging.</p>
+    <p>Please Enter the Following information into the Calculator</p>
+    <div id="reqlist">
+      <ul>
+        <li>Annual Salary</li>
+        <li>Monthly Rental Amount</li>
+      </ul>
+    </div>
+    <div class="intro">
+      <p>
+        First we Calculate the Tax on your <b>Base</b> Salary to create a
+        Without Salary Packaging Overview
+      </p>
+      <p>We then need to Determine the With Salary Packaging Salary Overview</p>
+      <p>
+        To find out the Savings We compare the With & Without Overviews to
+        determine the Benefit.
+      </p>
+      <p>
+        For the Purposes Of this Example We are Going to be Using the $30,000
+        Cap & Our Pay Period is Monthly.
+      </p>
+    </div>
+    <!--Number Input-->
+    <div id="values">
+      <p>Annual Salary:<input type="number" id="salary" /><br /></p>
+      <p>Monthly Rental Amount:<input type="number" id="rental" /><br /></p>
+      <button onclick="buttonA();">Get Result</button>
+    </div>
+    <!--Toggle Button-->
+    <span id="float"
+      ><button onclick="toggle()">Toggle Working</button
+      ><button onclick="toggle2()">hide</button></span
+    >
+    <!--Extra Working Buttons table-->
+    <div id="showhide">
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <p id="tableheading">
+                <u><b>Without Packaging</b></u>
+              </p>
+            </td>
+            <td>
+              <p id="tableheading">
+                <u><b>With Packaging</b></u>
+              </p>
+            </td>
+          </tr>
+          <!--First Row of Buttons-->
+          <tr>
+            <td>
+              <p id="tableheading"><b>Annual Salary</b></p>
+            </td>
+            <td>
+              <p id="tableheading"><b>Annual Salary</b></p>
+            </td>
+          </tr>
+          <tr>
+            <td><p id="Without_Salary"></p></td>
+            <td><p id="With_Salary"></p></td>
+          </tr>
+          <!--Second Row of Buttons-->
+          <tr>
+            <td>
+              <p id="tableheading"><b>Before Tax Payments</b></p>
+            </td>
+            <td>
+              <p id="tableheading"><b>Before Tax Payments</b></p>
+            </td>
+          </tr>
+          <tr>
+            <td><p id="Without_BeforeTax"></p></td>
+            <td><p id="With_BeforeTax"></p></td>
+            <td>
+              <p id="tableheading">
+                <b
+                  >Part/All Of Rental Payments Moved to Before Tax (Maximum of
+                  $15,889.00 for our $30,000 cap)</b
+                >
+              </p>
+            </td>
+          </tr>
+          <!--Third Row of Buttons-->
+          <tr>
+            <td>
+              <p id="tableheading"><b>Taxable Income</b></p>
+            </td>
+            <td>
+              <p id="tableheading"><b>Taxable Income</b></p>
+            </td>
+          </tr>
+          <tr>
+            <td><p id="Without_Taxable"></p></td>
+            <td><p id="With_Taxable"></p></td>
+            <td>
+              <p id="tableheading"><b>Reduces our Taxable Income</b></p>
+            </td>
+          </tr>
+          <!--Fourth Row of buttons-->
+          <tr>
+            <td>
+              <p id="tableheading"><b>Tax & Medicare Levy</b></p>
+            </td>
+            <td>
+              <p id="tableheading"><b>Tax & Medicare Levy</b></p>
+            </td>
+          </tr>
+          <tr>
+            <td><p id="Without_TaxMed"></p></td>
+            <td><p id="With_TaxMed"></p></td>
+            <td>
+              <p id="tableheading"><b>Reduces Our Tax Payable</b></p>
+            </td>
+          </tr>
+          <!--Fifth Row-->
+          <tr>
+            <td>
+              <p id="tableheading"><b>After Tax Payments</b></p>
+            </td>
+            <td>
+              <p id="tableheading"><b>After Tax Payments</b></p>
+            </td>
+          </tr>
+          <tr>
+            <td><p id="Without_AfterTax"></p></td>
+            <td><p id="With_AfterTax"></p></td>
+            <td>
+              <p id="tableheading">
+                <b
+                  >The Remainder of Our Rental Payment That Does not Fit Within
+                  the Cap is Paid as After-Tax Payments</b
+                >
+              </p>
+            </td>
+          </tr>
+          <!--Sixth Row-->
+          <tr>
+            <td>
+              <p id="tableheading"><b>Without Take-Home-Pay</b></p>
+            </td>
+            <td>
+              <p id="tableheading"><b>With Take-Home-Pay</b></p>
+            </td>
+          </tr>
+          <tr>
+            <td><p id="Without_Take-Home-Pay"></p></td>
+            <td><p id="With_Take-Home-Pay"></p></td>
+            <td>
+              <p id="tableheading">
+                <b>Creates a difference in our Take-Home-Pay</b>
+              </p>
+            </td>
+          </tr>
+          <!--Seventh Row-->
+          <tr>
+            <td>
+              <p id="tableheading"><b>Additional Disposable Income</b></p>
+            </td>
+            <td>
+              <p id="tableheading"><b>Additional Disposable Income</b></p>
+            </td>
+          </tr>
+          <tr>
+            <td><p id="Without_NewDisposable"></p></td>
+            <td><p id="With_NewDisposable"></p></td>
+            <td>
+              <p id="tableheading">
+                <b>This means we <u>Gain Disposable Income</u></b>
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--Rental Salary Answers-->
+    <div id="fa">
+      <p>Without Overview =</p>
+      <p id="without_overview"></p>
+
+      <p>With Overview =</p>
+      <p id="with_overview"></p>
+
+      <p>Savings =</p>
+      <p id="benefitsavings"></p>
+
+      <p>Savings Per Pay (Monthly) =</p>
+      <p id="benefitsavingsperpay"></p>
+    </div>
+    <script>
+      function toggle() {
+        //Display Working Button
+        var mydiv = document.getElementById("showhide");
+        mydiv.style.display = "none";
+        {
+          mydiv.style.display = "block";
+        }
+      }
+      function toggle2() {
+        //Hide The Displayed Working Button
+        var mydiv = document.getElementById("showhide");
+        mydiv.style.display = "none";
+      }
+
+      function buttonA() {
+        var Base,
+          CutOff,
+          MarginalRate,
+          Result,
+          Tax,
+          MedicareLevy,
+          TaxMed,
+          R_Base,
+          R_CutOff,
+          R_MarginalRate,
+          R_Result,
+          R_Tax,
+          R_MedicareLevy,
+          R_TaxMed,
+          cap = 15889,
+          cap_max = cap / 12,
+          PayPeriods = 12,
+          Salary = document.getElementById("salary").value,
+          with_rentalamount = document.getElementById("rental").value,
+          with_beforetax,
+          with_taxableincome,
+          with_rentoverflow = with_rentalamount - cap_max,
+          with_aftertax,
+          with_pack,
+          with_disposable,
+          without_rentalamount = document.getElementById("rental").value,
+          without_beforetax,
+          without_taxableincome,
+          without_aftertax,
+          without_pack,
+          without_disposable,
+          R_BenefitSavings,
+          R_BenefitSavingsPerPay;
+
+        //Manage Rental Overflow;
+        // If Greater than 0.01 Then there is a positive overflow & it will affect Calculations
+        // IF Less than 0 Then there is no overflow & a negative Overflow will break Calculations
+        without_aftertax = without_rentalamount * 12; //AFTER TAX FOR WITHOUT
+        // FOR WITH (BEFORE, AFTER & TAXABLE INCOME) -->
+        if (with_rentoverflow >= 0.01) {
+          with_rentalamount = cap_max; //BEFORE TAX
+          with_aftertax = with_rentoverflow * 12; //ANNUAL AFTER TAX
+          with_beforetax = with_rentalamount * 12; //ANNUAL BEFORE TAX
+          with_taxableincome = Salary - with_beforetax; //TAXABLE INCOME
+        }
+        if (with_rentoverflow <= 0) {
+          with_rentalamount = with_rentalamount; //BEFORE TAX
+          with_aftertax = 0; //AFTER TAX
+          with_beforetax = with_rentalamount * 12; //ANNUAL BEFORE TAX
+          with_taxableincome = Salary - with_beforetax; //TAXABLE INCOME
+        } // <-- END
+
+        //WITHOUT TAX CALC, RESULT & ADDITIONAL VARIABLES -->
+        if (Salary > 0) {
+          if (Salary < 18200) {
+            Base = 0;
+            CutOff = 0;
+            MarginalRate = 0;
+            Result = 0;
+          }
+          if (Salary >= 18201) {
+            if (Salary <= 45000) {
+              Base = 0;
+              CutOff = 18201;
+              MarginalRate = 0.19;
+              Result = Base + (Salary - 18200) * MarginalRate;
+            }
+          }
+          if (Salary >= 45001) {
+            if (Salary <= 120000) {
+              Base = 5092;
+              CutOff = 45001;
+              MarginalRate = 0.325;
+              Result = Base + (Salary - 45001) * MarginalRate;
+            }
+          }
+          if (Salary >= 120001) {
+            if (Salary <= 180000) {
+              Base = 29467;
+              CutOff = 120001;
+              MarginalRate = 0.37;
+              Result = Base + (Salary - 120001) * MarginalRate;
+            }
+          }
+          if (Salary > 180001) {
+            Base = 54096;
+            CutOff = 180001;
+            MarginalRate = 0.45;
+            result = Base + (Salary - 180001) * MarginalRate;
+          }
+          Tax = Result;
+          MedicareLevy = (Salary / 100) * 2;
+          TaxMed = Tax + MedicareLevy;
+        }
+        without_pack = Salary - TaxMed - without_aftertax; //RESULT
+        //Without Variables
+        without_beforetax = 0;
+        without_taxableincome = Salary - with_beforetax;
+        /* AFTER TAX, TAKE HOME PAY -> Elsewhere */
+        without_disposable =
+          without_pack - (Salary - TaxMed - without_aftertax);
+        // <-- END
+
+        //WITH TAX CALC, RESULT & ADDITIONAL VARIABLES -->
+        if (with_taxableincome > 0) {
+          if (with_taxableincome < 18200) {
+            R_Base = 0;
+            R_CutOff = 0;
+            R_MarginalRate = 0;
+            R_Result = 0;
+          }
+          if (with_taxableincome >= 18201) {
+            if (with_taxableincome <= 45000) {
+              R_Base = 0;
+              R_CutOff = 18201;
+              R_MarginalRate = 0.19;
+              R_Result = R_Base + (with_taxableincome - 18200) * R_MarginalRate;
+            }
+          }
+          if (with_taxableincome >= 45001) {
+            if (with_taxableincome <= 120000) {
+              R_Base = 5092;
+              R_CutOff = 45001;
+              R_MarginalRate = 0.325;
+              R_Result = R_Base + (with_taxableincome - 45001) * R_MarginalRate;
+            }
+          }
+          if (with_taxableincome >= 120001) {
+            if (with_taxableincome <= 180000) {
+              R_Base = 29467;
+              R_CutOff = 120001;
+              R_MarginalRate = 0.37;
+              R_Result =
+                R_Base + (with_taxableincome - 120001) * R_MarginalRate;
+            }
+          }
+          if (with_taxableincome > 180001) {
+            R_Base = 54096;
+            R_CutOff = 180001;
+            R_MarginalRate = 0.45;
+            R_Result = R_Base + (with_taxableincome - 180001) * R_MarginalRate;
+          }
+          R_Tax = R_Result;
+          R_MedicareLevy = (with_taxableincome / 100) * 2;
+          R_TaxMed = R_Tax + R_MedicareLevy;
+        }
+        with_pack = with_taxableincome - R_TaxMed; //WITH
+        //With Variables
+        /* SALARY, BEFORE TAX, TAXABLE INCOME, TAX, AFTER TAX, TAKE HOME -> Elsewhere */
+        with_disposable = with_pack - without_pack;
+        // <-- END
+
+        //SAVINGS
+        R_BenefitSavings = with_pack - without_pack;
+        R_BenefitSavingsPerPay = R_BenefitSavings / PayPeriods;
+
+        //Main Working Out
+        document.getElementById("without_overview").innerHTML = without_pack;
+        document.getElementById("with_overview").innerHTML = with_pack;
+        document.getElementById("benefitsavings").innerHTML = R_BenefitSavings;
+        document.getElementById("benefitsavingsperpay").innerHTML =
+          R_BenefitSavingsPerPay;
+        //ShowHide Working Out
+        //Salary
+        document.getElementById("Without_Salary").innerHTML = Salary;
+        document.getElementById("With_Salary").innerHTML = Salary;
+        //Before Tax Payments
+        document.getElementById("Without_BeforeTax").innerHTML =
+          without_beforetax;
+        document.getElementById("With_BeforeTax").innerHTML = with_beforetax;
+        //Taxable Income
+        document.getElementById("Without_Taxable").innerHTML =
+          without_taxableincome;
+        document.getElementById("With_Taxable").innerHTML = with_taxableincome;
+        //Tax & Medicare Levy
+        document.getElementById("Without_TaxMed").innerHTML = TaxMed;
+        document.getElementById("With_TaxMed").innerHTML = R_TaxMed;
+        //After Tax Payments
+        document.getElementById("Without_AfterTax").innerHTML =
+          without_aftertax;
+        document.getElementById("With_AfterTax").innerHTML = with_aftertax;
+        //Remainder
+        document.getElementById("Without_Take-Home-Pay").innerHTML =
+          without_pack;
+        document.getElementById("With_Take-Home-Pay").innerHTML = with_pack;
+        //Disposable Income
+        document.getElementById("Without_NewDisposable").innerHTML =
+          without_disposable;
+        document.getElementById("With_NewDisposable").innerHTML =
+          with_disposable;
+      }
+    </script>
+  </body>
+</html>
