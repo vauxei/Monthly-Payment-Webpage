@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<!-- Comments -->    
+ <head>
+    <meta charset="utf-8">
+    <title>Computer TimeLine</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+<!-- Styling section -->
+    <style>
+      h1 {color:DarkBlack;}
+      body {background-color: lightgrey;}
+      body {font-family:"helvetica",monospace;}
+            .list {
+              Float :left
+
+              overflow : auto;
+            }
+    </style> 
+ </head>
+ <body>
+  <h1>Computer Timeline</h1>
+  <p>These are pictures of the first three layouts</p>
+<!-- Table Begin -->
+  <div class="list"><table>
+<!-- Table Headers 'container' -->
+    <thead>
+      <tr>
+        <th class="c1">Initial State</th>
+        <th class="c2">Test Layout</th>
+        <th class="c3">The Final Layout</th>
+      </tr
+    </thead>
+    <tbody>
+      <tr>
+<!-- Table Data 'container' -->
+        <td><img src="https://i.imgur.com/QAIz3Px.jpg" height="500"></td>
+        <td><img src="https://i.imgur.com/on9SIZ2.jpg" height="500"></td>
+        <td><img src="https://i.imgur.com/YfP7bwB.jpg" height="500"></td>
+      </tr>
+    </tbody>
+  </table></div>
+<!-- Hyperlinks -->
+  <p>Find more images like this at <a href=https://www.google.com.au> Google</a></p>
+  <p>This next link is setup to open on a new page <a target="_blank" href=https://www.google.com.au> Google</a></p>  
+/* CHECKLIST EXAMPLE */
+<div id="example-3" class="demo">
+  <input type="checkbox" id="list" value="list" v-model="checklist">
+  <label for="jack">list</label>
+  <br>
+  <input type="checkbox" id="git" value="git" v-model="checklist">
+  <label for="john">git</label>
+  <br>
+  <span>Checked items: {{ checklist }}</span>
+</div>
+/* GITHUB COMMITS */
+<div id="demo">
+      <h1>Latest Vue.js Commits</h1>
+      <template v-for="branch in branches">
+        <input
+          type="radio"
+          :id="branch"
+          :value="branch"
+          name="branch"
+          v-model="currentBranch"
+        />
+        <label :for="branch">{{ branch }}</label>
+      </template>
+      <p>vuejs/vue@{{ currentBranch }}</p>
+      <ul>
+        <li v-for="record in commits">
+          <a :href="record.html_url" target="_blank" class="commit"
+            >{{ record.sha.slice(0, 7) }}</a
+          >
+          - <span class="message">{{ record.commit.message | truncate }}</span
+          ><br />
+          by
+          <span class="author"
+            ><a :href="record.author.html_url" target="_blank"
+              >{{ record.commit.author.name }}</a
+            ></span
+          >
+          at
+          <span class="date">{{ record.commit.author.date | formatDate }}</span>
+        </li>
+      </ul>
+    </div>
+  <script>
+  /* CHECKLIST EXAMPLE */
+ new Vue({
+  el: '#example-3',
+  data: {
+    checklist: []
+  }
+})
+/* VUE GITHUB COMMITS */
+  var apiURL =
+        "https://api.github.com/repos/vuejs/vue/commits?per_page=3&sha=";
+
+      /**
+       * Actual demo
+       */
+
+      var demo = new Vue({
+        el: "#demo",
+
+        data: {
+          branches: ["master", "dev"],
+          currentBranch: "master",
+          commits: null
+        },
+
+        created: function() {
+          this.fetchData();
+        },
+
+        watch: {
+          currentBranch: "fetchData"
+        },
+
+        filters: {
+          truncate: function(v) {
+            var newline = v.indexOf("\n");
+            return newline > 0 ? v.slice(0, newline) : v;
+          },
+          formatDate: function(v) {
+            return v.replace(/T|Z/g, " ");
+          }
+        },
+
+        methods: {
+          fetchData: function() {
+            var xhr = new XMLHttpRequest();
+            var self = this;
+            xhr.open("GET", apiURL + self.currentBranch);
+            xhr.onload = function() {
+              self.commits = JSON.parse(xhr.responseText);
+              console.log(self.commits[0].html_url);
+            };
+            xhr.send();
+          }
+        }
+      });
+  </script>
+ </body>
+</html>
