@@ -1,0 +1,210 @@
+<!DOCTYPE Html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Index</title>
+<style>
+    #values {width:35%;position:absolute;background-color:lightseagreen;margin-top:30px;
+    border: 2px ridge}
+    #values input {float:right}
+    .answers {width:40%;position:relative;top:200px;}
+    #showhide {width:40%;Position:absoulte;float:right;}
+</style>
+</head>
+<body>
+<h1>Monthly Payment Calculator</h1>
+<!--Toggle Buttons-->
+    <span id="float"><button onclick="toggle()">Show Working</button>
+    <button onclick="toggle2()">Hide Working</button></span>
+<!--Number Input-->
+<div id="values">    
+    <p>Principal:<input type="number" id="p"><br></p>
+    <p>No. of Months:<input type="number" id="n"><br></p>
+    <p>Interest Rate:<input type="number" id="rr"><br></p>
+    <p>Residual:<input type="number" id="x"><br></p>
+</div>
+<!--Answers-->
+<div class="answers">
+    <p>Monthly Payment(no Residual) =</p><p id="mpa"></p>
+    <button onclick="buttonmp()">Result</button>
+    <p>Monthly Payment (Residual, no interest) =</p><p id="mpax"></p>
+    <button onclick="buttonmpx()">Result</button>
+    <p>Monthly Payment (Residual, with interest) =</p><p id="mpaxri"></p>
+    <button onclick="buttonmpxeri()">Result</button>
+</div>
+<div id="showhide">
+<table>
+<tbody>
+<!--First Table Row-->
+<tr>
+    <td>bracket one result</td>
+    <td>bracket two result</td>
+</tr>
+<tr>
+    <td><button onclick="buttonbr1()">Result</button></td>
+    <td><button onclick="buttonbr2()">Result</button></td>
+</tr>
+<tr>
+    <td><p id="b01"></p></td>
+    <td><p id="b02"></p></td>
+</tr>
+<!--Second Table Row-->
+<tr>
+    <td><p>bracket zero result</p></td>
+    <td><p>Effective Rate</p></td>
+</tr>
+<tr>
+    <td><button onclick="buttonbr0()">Result</button></td>
+    <td><button onclick="buttonery4()">Result</button></td>
+</tr>
+<tr>
+    <td><p id="b00"></p></td>
+    <td><p id="er"></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<script>
+//Monthly Payment Inc Residual With Residual Interest
+function buttonmpxeri(){
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    p = document.getElementById("p").value;
+    x = document.getElementById("x").value;
+    r = (rr/100)/12;           //to get rate per month
+    r1 = r+1;                  //to get rate plus one
+    b = r1**n;                 //r1 exponential
+    b2 = b-1;                  //r1 exp less one for bracket two
+    b3 = r*b;                  //r1 expo times r for bracket one
+    b0 = b3/b2;                //bracket one divided by two
+    ax = (p-x)*b0;             //principal less residual times bracket zero result
+    y0 = rr/100;               //To get interest decimal
+    y1 = y0/n;                 //to get interest divided by term
+    y2 = y1+1;                 //To get Bracket one Plus one 
+    y3 = y2**n;                //To get i/n+1 to the power of N 
+    y4 = y3-1;                 //To get Effective Rate
+    z = x*y4;                  //To get amount
+    ri = z/12;                 //To get Monthly Residual Interest
+    axri = ax+ri;              //To get Monthly Payment + Monthly Residual Interest
+    document.getElementById("mpaxri").innerHTML = axri
+}
+//Total ER Residual Interest
+function buttonteri() {//Effective Rate Multiplied By Residual
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    x = document.getElementById("x").value;
+    y0 = rr/100;               //To get interest decimal
+    y1 = y0/n;                 //to get interest divided by term
+    y2 = y1+1;                 //To get Bracket one Plus one 
+    y3 = y2**n;                //To get i/n+1 to the power of N 
+    y4 = y3-1;                 //To get Effective Rate
+    z = x*y4;                  //To get amount
+    ri = z/12;                 //To get Monthly Residual Interest
+    tri = ri*n;                //To get Total Residual Interest
+    document.getElementById("teri0").innerHTML = tri
+}
+//Monthly ER Residual Interest
+function buttonmperi() {//Effective Rate Multiplied By Residual
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    x = document.getElementById("x").value;
+    y0 = rr/100;               //To get interest decimal
+    y1 = y0/n;                 //to get interest divided by term
+    y2 = y1+1;                 //To get Bracket one Plus one 
+    y3 = y2**n;                //To get i/n+1 to the power of N 
+    y4 = y3-1;                 //To get Effective Rate
+    z = x*y4;                  //To get amount
+    ri = z/12;                 //To get Monthly Residual Interest
+    document.getElementById("eri").innerHTML = ri
+}
+//Effective Rate
+function buttonery4() {
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    y0 = rr/100;               //To get interest decimal
+    y1 = y0/n;                 //to get interest divided by term
+    y2 = y1+1;                 //To get Bracket one Plus one 
+    y3 = y2**n;                //To get i/n+1 to the power of N 
+    y4 = y3-1;                 //To get Effective Rate
+    document.getElementById("er").innerHTML = y4
+}
+//Monthly Payment inc residual without resisudal interest
+function buttonmpx(){
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    p = document.getElementById("p").value;
+    x = document.getElementById("x").value;
+    r = (rr/100)/12;           //to get rate per month
+    r1 = r+1;                  //to get rate plus one
+    b = r1**n;                 //r1 exponential
+    b2 = b-1;                  //r1 exp less one for bracket two
+    b3 = r*b;                  //r1 expo times r for bracket one
+    b0 = b3/b2;                //bracket one divided by two
+    ax = (p-x)*b0;             //principal less residual times bracket zero result
+    document.getElementById("mpax").innerHTML = ax
+}
+//Monthly Payment - B0 multiplied by Principal
+function buttonmp() {
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    p = document.getElementById("p").value;
+    r = (rr/100)/12;           //to get rate per month
+    r1 = r+1;                  //to get rate plus one
+    b = r1**n;                 //r1 exponential
+    b2 = b-1;                  //r1 exp less one for bracket two
+    b3 = r*b;                  //r1 expo times r for bracket one
+    b0 = b3/b2;                //bracket one divided by two
+    a = p*b0;                  //principal times brackets result
+    document.getElementById("mpa").innerHTML = a
+}
+//Bracket 0 - One Divided by Two result
+function buttonbr0() {
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    r = (rr/100)/12;           //to get rate per month
+    r1 = r+1;                  //to get rate plus one
+    b = r1**n;                 //r1 exponential
+    b2 = b-1;                  //r1 exp less one for bracket two
+    b3 = r*b;                  //r1 expo times r for bracket one
+    b0 = b3/b2;                //bracket one divided by two
+    document.getElementById("b00").innerHTML = b0
+}
+//Bracket Two Result
+function buttonbr2() {
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    r = (rr/100)/12;           //to get rate per month
+    r1 = r+1;                  //to get rate plus one
+    b = r1**n;                 //r1 exponential
+    b2 = b-1;                  //r1 exp less one for bracket two
+    document.getElementById("b02").innerHTML = b2
+}
+//Bracket One Result
+function buttonbr1() {
+    var n = document.getElementById("n").value;
+    rr = document.getElementById("rr").value;
+    r = (rr/100)/12;           //to get rate per month
+    r1 = r+1;                  //to get rate plus one
+    b = r1**n;                 //r1 exponential
+    b1 = r*b;                  //r1 expo times r for bracket one
+    document.getElementById("b01").innerHTML = b1
+}
+//Interest Rate for Formula
+function buttonir() {
+    var rr = document.getElementById("rr").value;
+    r = (rr/100)/12;           //to get rate per month
+    document.getElementById("rate").innerHTML = r 
+}
+//Display Working Button
+function toggle() {
+    var mydiv = document.getElementById("showhide");
+    (mydiv.style.display='none');{mydiv.style.display='block';}
+}
+//Hide The Displayed Working Button
+function toggle2() {
+    var mydiv = document.getElementById("showhide");
+    mydiv.style.display='none'
+} 
+</script>
+</body>
+</html>
